@@ -53,6 +53,7 @@ public class GameMain : MonoBehaviour
     private void BeginGame()
     {
         water.transform.position = new Vector3(0f, groundHeight, 0f);
+        //StartCoroutine(FadeWaterIn(1f, 0f, 0.8f));
     }
 
     private IEnumerator FadeWaterIn(float t, float minA, float maxA)
