@@ -23,7 +23,7 @@ public class GameMain : MonoBehaviour
     void Start()
     {
         running = false;
-        gameText.text = "Configuring...\nPlease look around at the ground";
+        gameText.text = "Loading...\nPlease look around at the ground";
         StartCoroutine(Configure());
     }
 
