@@ -13,6 +13,7 @@ public class GameMain : MonoBehaviour
     public Text gameText;
     public Text gameCount;
     public GameObject boatSpawner;
+    public GameObject lilypad;
     public ARPlaneManager planeManager;
     public float groundHeight = 0f;
     public GameObject water;
@@ -39,10 +40,10 @@ public class GameMain : MonoBehaviour
     {
         water.SetActive(false);
         arrow.SetActive(false);
-        //while (planeManager.trackables.count < 1)
-        //{
-        //    yield return new WaitForSeconds(0.1f);
-        //}
+        while (planeManager.trackables.count < 1)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
         yield return new WaitForSeconds(1f);
         arrow.SetActive(true);
         gameText.text = "Point the phone in the direction of gameplay";
@@ -83,25 +84,31 @@ public class GameMain : MonoBehaviour
         water.transform.position = new Vector3(0f, groundHeight - 1f, 0f);
         water.SetActive(true);
         arrow.SetActive(false);
+        gameText.text = "";
         Vector3 camDir = Camera.main.transform.rotation * Vector3.forward;
         gameDir = new Vector3(camDir.x, camDir.z).normalized;
         gameOrigin = new Vector3(Camera.main.transform.position.x, groundHeight, Camera.main.transform.position.z);
+        GameObject lily = Instantiate(lilypad);
+        lily.transform.position = gameOrigin;
 
-        Vector2 initialOffset = gameDir * 1f;
-        Vector2 perOffset = gameDir * 2f;
-        Debug.Log(initialOffset.ToString());
-        Debug.Log(perOffset.ToString());
+        Vector2 initialOffset = gameDir * 6f;
+        Vector2 perOffset = gameDir * 5f;
         for (int i = 0; i < numRows; i++)
         {
-            Vector3 pos = gameOrigin + new Vector3(initialOffset.x + perOffset.x, 0f, initialOffset.y + perOffset.y);
+            Vector2 thisOffset = perOffset * i;
+            Vector3 pos = gameOrigin + new Vector3(initialOffset.x + thisOffset.x, 0f, initialOffset.y + thisOffset.y);
             GameObject inst = Instantiate(boatSpawner);
             inst.transform.position = pos;
             BoatSpawner sp = inst.GetComponent<BoatSpawner>();
-            sp.dir = Vector2.Perpendicular(gameDir);
+            Vector2 perp = Vector2.Perpendicular(gameDir);
+            if (i % 2 == 0)
+            {
+                perp = -1 * perp;
+            }
+            sp.dir = perp;
             sp.speed = 3f + 0.2f * i;
-            sp.rate = 0f;
+            sp.rate = 0.2f + 0.09f * i;
             spawners.Add(sp);
-            gameText.text = spawners.Count.ToString();
         }
         StartCoroutine(BoatRoutine());
     }
@@ -117,7 +124,7 @@ public class GameMain : MonoBehaviour
                     sp.TrySpawn();
                 }
             }
-            yield return new WaitForSeconds(1.2f);
+            yield return new WaitForSeconds(4f);
         }
     }
 

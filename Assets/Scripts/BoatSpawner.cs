@@ -27,13 +27,14 @@ public class BoatSpawner : MonoBehaviour
 
     public void ManualSpawn()
     {
-        GameMain.instance.gameText.text = "oh pog";
         int nPs = prefabs.Count;
         int i = Random.Range(0, nPs);
         GameObject inst = Instantiate(prefabs[i]);
         Vector3 dir3 = new Vector3(dir.x, 0f, dir.y);
         inst.transform.position = transform.position + (-dir3 * offset);
         inst.GetComponent<Boat>().velocity = dir.normalized * speed;
+        inst.transform.rotation = Quaternion.LookRotation(dir3, Vector3.up);
+        boats.Add(inst);
     }
 
     public void TrySpawn()
@@ -41,6 +42,21 @@ public class BoatSpawner : MonoBehaviour
         if (Random.value < rate)
         {
             ManualSpawn();
+        }
+
+        int i = 0;
+        while (i < boats.Count)
+        {
+            GameObject b = boats[i];
+            if (Vector3.Distance(b.transform.position, transform.position) > offset + 1)
+            {
+                Destroy(b);
+                boats.RemoveAt(i);
+            }
+            else
+            {
+                i++;
+            }
         }
     }
 }
