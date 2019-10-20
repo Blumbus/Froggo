@@ -12,4 +12,13 @@ public class Boat : MonoBehaviour
     {
         transform.position += new Vector3(velocity.x, 0f, velocity.y) * Time.deltaTime;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Player p = other.gameObject.GetComponent<Player>();
+        if (p != null)
+        {
+            p.Kill();
+        }
+    }
 }

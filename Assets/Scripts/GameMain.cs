@@ -15,6 +15,7 @@ public class GameMain : MonoBehaviour
     public GameObject boatSpawner;
     public GameObject lilypad;
     public ARPlaneManager planeManager;
+    public ARPointCloudManager pointManager;
     public float groundHeight = 0f;
     public GameObject water;
     public GameObject arrow;
@@ -30,6 +31,7 @@ public class GameMain : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Player.instance.alive = true;
         running = false;
         gameText.text = "Calibrating...Please look around at the ground";
         gameCount.gameObject.SetActive(false);
@@ -40,11 +42,11 @@ public class GameMain : MonoBehaviour
     {
         water.SetActive(false);
         arrow.SetActive(false);
-        while (planeManager.trackables.count < 1)
+        /*while (planeManager.trackables.count < 1)
         {
             yield return new WaitForSeconds(0.1f);
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1f);*/
         arrow.SetActive(true);
         gameText.text = "Point the phone in the direction of gameplay";
         StartCoroutine(Countdown(5));
@@ -58,7 +60,6 @@ public class GameMain : MonoBehaviour
                 groundHeight = h;
             }
         }
-        running = true;
         BeginGame();
     }
 
@@ -110,6 +111,7 @@ public class GameMain : MonoBehaviour
             sp.rate = 0.2f + 0.09f * i;
             spawners.Add(sp);
         }
+        running = true;
         StartCoroutine(BoatRoutine());
     }
 
@@ -148,6 +150,5 @@ public class GameMain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 }
