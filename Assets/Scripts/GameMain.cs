@@ -14,6 +14,7 @@ public class GameMain : MonoBehaviour
     public Text gameCount;
     public GameObject boatSpawner;
     public GameObject lilypad;
+    public GameObject finishLine;
     public ARPlaneManager planeManager;
     public ARPointCloudManager pointManager;
     public float groundHeight = 0f;
@@ -111,6 +112,12 @@ public class GameMain : MonoBehaviour
             sp.rate = 0.2f + 0.09f * i;
             spawners.Add(sp);
         }
+        GameObject finInst = Instantiate(finishLine);
+        Vector2 finOffset = perOffset * numRows;
+        Vector3 finPos = gameOrigin + new Vector3(initialOffset.x + finOffset.x, 0f, initialOffset.y + finOffset.y);
+        finInst.transform.position = finPos;
+        Vector3 dir3 = new Vector3(gameDir.x, 0f, gameDir.y);
+        finInst.transform.rotation = Quaternion.LookRotation(dir3, Vector3.up);
         running = true;
         StartCoroutine(BoatRoutine());
     }

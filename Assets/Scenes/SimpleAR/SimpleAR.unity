@@ -1036,6 +1036,8 @@ MonoBehaviour:
   boatSpawner: {fileID: 7059271848056756343, guid: 96aca6d6d97873a4f9f53c718a2d17fc,
     type: 3}
   lilypad: {fileID: 1934569588295450, guid: 713efe0c7e63e4449a21db489bc3be6e, type: 3}
+  finishLine: {fileID: 1632549186570860476, guid: 9a73436da8dedc443a3f19265d5a017e,
+    type: 3}
   planeManager: {fileID: 1335839537}
   pointManager: {fileID: 0}
   groundHeight: 0
@@ -1482,8 +1484,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1344027537}
-  m_LocalRotation: {x: 0.19720532, y: 0.087227196, z: 0.017644756, w: -0.9763146}
-  m_LocalPosition: {x: 602.6409, y: -551.5647, z: -678.1361}
+  m_LocalRotation: {x: -0.3702056, y: 0.114664, z: 0.04610074, w: 0.92069256}
+  m_LocalPosition: {x: -0.89582443, y: -23.358, z: -9.295988}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
