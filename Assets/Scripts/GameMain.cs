@@ -9,13 +9,14 @@ public class GameMain : MonoBehaviour
 
     public static GameMain instance;
     public bool running = false;
-    public int numRows = 7;
+    public int numRows = 2;
     public Text gameText;
     public Text gameCount;
     public GameObject boatSpawner;
     public GameObject lilypad;
     public GameObject finishLine;
     public ARPlaneManager planeManager;
+    public GameObject ammo;
     public ARPointCloudManager pointManager;
     public float groundHeight = 0f;
     public GameObject water;
@@ -23,6 +24,7 @@ public class GameMain : MonoBehaviour
     public Vector2 gameDir;
     public Vector3 gameOrigin;
     private List<BoatSpawner> spawners = new List<BoatSpawner>();
+    public int numPads = 20;
 
     private void Awake()
     {
@@ -36,6 +38,8 @@ public class GameMain : MonoBehaviour
         running = false;
         gameText.text = "Calibrating...Please look around at the ground";
         gameCount.gameObject.SetActive(false);
+        ammo.SetActive(false);
+        numPads = 20;
         StartCoroutine(Configure());
     }
 
@@ -43,11 +47,11 @@ public class GameMain : MonoBehaviour
     {
         water.SetActive(false);
         arrow.SetActive(false);
-        /*while (planeManager.trackables.count < 1)
+        while (planeManager.trackables.count < 1)
         {
             yield return new WaitForSeconds(0.1f);
         }
-        yield return new WaitForSeconds(1f);*/
+        yield return new WaitForSeconds(1f);
         arrow.SetActive(true);
         gameText.text = "Point the phone in the direction of gameplay";
         StartCoroutine(Countdown(5));
@@ -84,8 +88,14 @@ public class GameMain : MonoBehaviour
     private void BeginGame()
     {
         water.transform.position = new Vector3(0f, groundHeight - 1f, 0f);
+        foreach (UnityEngine.XR.ARFoundation.ARPlane p in planeManager.trackables)
+        {
+            p.gameObject.SetActive(false);
+        }
         water.SetActive(true);
         arrow.SetActive(false);
+        ammo.SetActive(true);
+        UpdatePads();
         gameText.text = "";
         Vector3 camDir = Camera.main.transform.rotation * Vector3.forward;
         gameDir = new Vector3(camDir.x, camDir.z).normalized;
@@ -120,6 +130,11 @@ public class GameMain : MonoBehaviour
         finInst.transform.rotation = Quaternion.LookRotation(dir3, Vector3.up);
         running = true;
         StartCoroutine(BoatRoutine());
+    }
+
+    public void UpdatePads()
+    {
+        ammo.transform.Find("AmmoText").GetComponent<Text>().text = "x" + numPads.ToString();
     }
 
     private IEnumerator BoatRoutine()

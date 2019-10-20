@@ -1,5 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &7328814667893056297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2897801963458622485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79639a2813f5f1d42aa6e77e230890f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4859387696422216859
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,8 +281,24 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6793184821142731484, guid: 505805a8df605ff4da5dfe3c2d99fcb6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7328814667893056297}
+    - target: {fileID: 6793184821142731484, guid: 505805a8df605ff4da5dfe3c2d99fcb6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Menu
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 505805a8df605ff4da5dfe3c2d99fcb6, type: 3}
+--- !u!1 &2897801963458622485 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6793184821142731486, guid: 505805a8df605ff4da5dfe3c2d99fcb6,
+    type: 3}
+  m_PrefabInstance: {fileID: 8534657821879881419}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &2897801963458622484 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6793184821142731487, guid: 505805a8df605ff4da5dfe3c2d99fcb6,

@@ -15,7 +15,7 @@ public class DrownCheck : MonoBehaviour
     private bool LilyCheck()
     {
         RaycastHit[] hits;
-        hits = Physics.RaycastAll(transform.position, -Vector3.up, 70f);
+        hits = Physics.SphereCastAll(transform.position, 0.5f, -Vector3.up, 70f);
 
         for (int i = 0; i < hits.Length; i++)
         {
@@ -47,7 +47,7 @@ public class DrownCheck : MonoBehaviour
             else
             {
                 offTime += Time.deltaTime;
-                if (offTime > 0.25f)
+                if (offTime > 0.29f)
                 {
                     if (Player.instance.alive)
                     {

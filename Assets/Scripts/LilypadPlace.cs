@@ -43,7 +43,7 @@ public class LilypadPlace : MonoBehaviour
 
     void Update()
     {
-        if (GameMain.instance.running)
+        if (GameMain.instance.running && GameMain.instance.numPads > 0)
         {
             Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             Plane p = new Plane(Vector3.up, new Vector3(0f, GameMain.instance.groundHeight, 0f));
@@ -62,6 +62,8 @@ public class LilypadPlace : MonoBehaviour
                 if (touch.phase == TouchPhase.Began)
                 {
                     GameObject pad = Instantiate(placedPrefab, hitPos, Quaternion.identity);
+                    GameMain.instance.numPads--;
+                    GameMain.instance.UpdatePads();
                     spawnedObjects.Add(pad);
                 }
             }

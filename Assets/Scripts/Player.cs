@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     {
         alive = false;
         PanelManager.instance.ShowPanel("lose");
+        GameMain.instance.running = false;
     }
 
     // Start is called before the first frame update
